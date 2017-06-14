@@ -16,8 +16,8 @@
     "url": "https://github.com/rramadev/.../issues"
   },
   "scripts": {
-    "start": "",
-    "build": "babel . -d lib"
+    "start": "npm run build && node dist/test.js",
+    "build": "babel src -d dist"
   },
   "dependencies": {},
   "devDependencies": {

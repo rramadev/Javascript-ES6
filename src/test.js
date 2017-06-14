@@ -107,27 +107,7 @@ arrayAnimals
   .filter( (animal) => animal.name === 'lisa' ) 
   .subscribe(myAnimalsObserver);
 
-
 // Test REDUCE with data file
 import fs from 'fs';
 var output = fs.readFileSync('data.txt', 'utf8');
 console.log('output:', output);
-
-// const clickObservable = {
-//   subscribe: function subscribe(observer) {
-//     document.addEventListener('click', observer.next);
-//   }
-// };
-
-// Observer Object with CB Functions
-// const observer = {
-//   next: function nextCB(data, i, a) {
-//     console.log(`Received: ${data}`);
-//   },
-//   error: function errorCB(err) {
-//     console.log(err);
-//   },
-//   complete: function completeCB() {
-//     console.log('Done!');
-//   }
-// };
