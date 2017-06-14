@@ -19,7 +19,8 @@ A series of javascript demos, to test and understand the new feautures included 
 
 command | description
 --- | ---
-`npm run start`| ...
+`npm run start`| build, executes test with node
+`npm run build`| babel build to dist folder
 
 ## Installation
 
