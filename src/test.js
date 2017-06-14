@@ -1,4 +1,8 @@
 /**
+ * Functional programming in Javascript
+ */
+
+/**
  * Operator Map (Returns a new Observable)
  * 
  * @param {object} transformFn 
@@ -8,7 +12,7 @@ function map(transformFn) {
   const inputObservable = this;
   const outputObservable = createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
-      next: function(x) {
+      next: function (x) {
         const y = transformFn(x);
         outputObserver.next(y);
       },
@@ -29,7 +33,7 @@ function filter(filterFn) {
   const inputObservable = this;
   const outputObservable = createObservable(function subscribe(outputObserver) {
     inputObservable.subscribe({
-      next: function(x) {
+      next: function (x) {
         if (filterFn(x)) outputObserver.next(x);
       },
       error: (err) => outputObserver.error(err),
@@ -53,7 +57,10 @@ function createObservable(subscribeFn) {
   }
 };
 
+// *****
 // Test MAP with Observables
+// *****
+
 // Observer Object
 const myObserver = {
   next: (data, i, a) => console.log(`Received element: ${data}`),
@@ -70,23 +77,29 @@ const arrayObservable = createObservable(function subscribe(observer) {
 
 // Subscribe to Observable
 arrayObservable
-  .map(x => x*2)
-  .map(x => x+10)
+  .map(x => x * 2)
+  .map(x => x + 10)
   .subscribe(myObserver);
 
+// *****
 // Test FILTER with Array
+// *****
+
 let animals = [
-  {name: 'bobby', species: 'dog'},
-  {name: 'lisa', species: 'dog'},
-  {name: 'lucy', species: 'cat'},
-  {name: 'jack', species: 'parrot'}
+  { name: 'bobby', species: 'dog' },
+  { name: 'lisa', species: 'dog' },
+  { name: 'lucy', species: 'cat' },
+  { name: 'jack', species: 'parrot' }
 ]
 
 animals
-  .filter( (animal) => animal.species === 'dog' )
-  .forEach( (dog, i) => console.log(`Dog ${i}: ${dog.name}`) )
+  .filter((animal) => animal.species === 'dog')
+  .forEach((dog, i) => console.log(`Dog ${i}: ${dog.name}`))
 
+// *****
 // Test FILTER with Observables
+// *****
+
 // New Observable Object from Array
 const arrayAnimals = createObservable(function subscribe(observer) {
   console.log("Subscribed to Animals Observable");
@@ -103,11 +116,29 @@ const myAnimalsObserver = {
 
 // Subscribe to Observable
 arrayAnimals
-  .filter( (animal) => animal.species === 'dog' )  
-  .filter( (animal) => animal.name === 'lisa' ) 
+  .filter((animal) => animal.species === 'dog')
+  .filter((animal) => animal.name === 'lisa')
   .subscribe(myAnimalsObserver);
 
+// *****
 // Test REDUCE with data file
+// *****
+
 import fs from 'fs';
-var output = fs.readFileSync('data.txt', 'utf8');
-console.log('output:', output);
+
+// Read the data file and format to JSON
+var output = fs.readFileSync('src/data/animals.txt', 'utf8')
+  .trim()
+  .split('\r\n')
+  .map(line => line.split('\t'))
+  .reduce((animal, line) => { 
+    animal[line[0]] = animal[line[0]] || [];
+    animal[line[0]].push({
+      species: line[1],
+      color: line[2],
+      age: line[3]
+    });
+    return animal;
+  }, {});
+
+console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));

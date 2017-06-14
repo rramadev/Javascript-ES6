@@ -136,5 +136,18 @@ arrayAnimals.filter(function (animal) {
 
 // Test REDUCE with data file
 
-var output = _fs2.default.readFileSync('data.txt', 'utf8');
-console.log('output:', output);
+
+// Read the data file and format to JSON
+var output = _fs2.default.readFileSync('src/data/animals.txt', 'utf8').trim().split('\r\n').map(function (line) {
+  return line.split('\t');
+}).reduce(function (animal, line) {
+  animal[line[0]] = animal[line[0]] || [];
+  animal[line[0]].push({
+    species: line[1],
+    color: line[2],
+    age: line[3]
+  });
+  return animal;
+}, {});
+
+console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));

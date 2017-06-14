@@ -2,7 +2,13 @@
 
 ## Synopsis
 
-A series of javascript demos, to test and understand the new feautures included in the ES6 version. Using: 
+A series of javascript demos, to test and understand the new feautures included in the ES6 version, including: 
+
+- Functional programming
+- Arrow functions
+- Modules
+
+## Built With
 
 - Javascript ES6
 - ESLint
@@ -24,3 +30,7 @@ command | description
 
 3) Type: `npm start`
     This launches the ...
+
+## Acknowledgments
+
+* [funfunfunction](https://www.youtube.com/watch?v=BMUiFMZr7vk) - Video series about Functional Programming in Javascript
