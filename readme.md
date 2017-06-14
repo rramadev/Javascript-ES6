@@ -29,8 +29,9 @@ command | description
     This installs the dependencies as defined in the package.json file.
 
 3) Type: `npm start`
-    This launches the ...
+    This launches the babel transpiler and executes the resulting javascript test file.
 
 ## Acknowledgments
 
-* [funfunfunction](https://www.youtube.com/watch?v=BMUiFMZr7vk) - Video series about Functional Programming in Javascript
+* [Mattias Petter Johansson](https://www.youtube.com/watch?v=BMUiFMZr7vk) - Video series of the Youtube channel "Funfunfunction" about Functional Programming in Javascript.
+* [André Staltz](https://www.youtube.com/watch?v=uQ1zhJHclvs) - André Staltz (@andrestaltz): You will learn RxJS at ng-europe 2016.
