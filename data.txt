@@ -1,0 +1,6 @@
+mammals dog black   8
+mammals cat brown   5
+reptiles    snake   green   2
+reptiles    turtle  yellow  115
+birds   parrot  red 10
+birds   pigeon  grey    2

@@ -1,0 +1,27 @@
+{
+  "name": "javascript-es6-demos",
+  "version": "1.0.0",
+  "author": "rramadev",
+  "description": "Javascript ES6 Demos",
+  "license": "MIT",
+  "keywords": [
+    "rramadev"
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rramadev/..."
+  },
+  "bugs": {
+    "url": "https://github.com/rramadev/.../issues"
+  },
+  "scripts": {
+    "start": "",
+    "build": "babel . -d lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2"
+  }
+}
