@@ -1,12 +1,13 @@
-# Javascript ES6 Demos
+# Javascript ES5/ES6 Demos
 
 ## Synopsis
 
-A series of javascript demos, to test and understand the new feautures included in the ES6 version, including: 
+A series of javascript demos, to test and understand advance Javascript concepts and new feautures included in the ES6 version, including: 
 
 - Functional programming
 - Arrow functions
 - Modules
+- Closures
 
 ## Built With
 

@@ -1,12 +1,12 @@
 /**
- * Functional programming in Javascript
+ * Test FUNCTIONAL PROGRAMMING in Javascript
  */
 
 /**
  * Operator Map (Returns a new Observable)
  * 
- * @param {object} transformFn 
- * @returns Observable
+ * @param {function} transformFn 
+ * @returns {object} outputObservable
  */
 function map(transformFn) {
   const inputObservable = this;
@@ -26,8 +26,8 @@ function map(transformFn) {
 /**
  * Operator Filter (Returns a new Observable)
  * 
- * @param {object} transformFn 
- * @returns Observable
+ * @param {function} filterFn 
+ * @returns {object} outputObservable
  */
 function filter(filterFn) {
   const inputObservable = this;
@@ -44,10 +44,10 @@ function filter(filterFn) {
 };
 
 /**
- * Create Observable Object
+ * Create Observable myObj ect
  * 
- * @param {any} subscribeFn 
- * @returns 
+ * @param {function} subscribeFn 
+ * @returns {object}
  */
 function createObservable(subscribeFn) {
   return {
@@ -61,14 +61,14 @@ function createObservable(subscribeFn) {
 // Test MAP with Observables
 // *****
 
-// Observer Object
+// Observer myObject
 const myObserver = {
   next: (data, i, a) => console.log(`Received element: ${data}`),
   error: (err) => console.log(err),
   complete: () => console.log('Done!')
 };
 
-// New Observable Object from Array
+// New Observable myObject from Array
 const arrayObservable = createObservable(function subscribe(observer) {
   console.log("Subscribed to Observable - Initial array [1, 2, 3]");
   [1, 2, 3].forEach(observer.next);
@@ -78,8 +78,8 @@ const arrayObservable = createObservable(function subscribe(observer) {
 // Subscribe to Observable
 arrayObservable
   .map(x => x * 2)
-  .map(x => x + 10)
-  .subscribe(myObserver);
+  .map(x => x + 10);
+  // .subscribe(myObserver);
 
 // *****
 // Test FILTER with Array
@@ -100,14 +100,14 @@ animals
 // Test FILTER with Observables
 // *****
 
-// New Observable Object from Array
+// New Observable myObject from Array
 const arrayAnimals = createObservable(function subscribe(observer) {
   console.log("Subscribed to Animals Observable");
   animals.forEach(observer.next);
   observer.complete();
 });
 
-// Observer Object
+// Observer myObject
 const myAnimalsObserver = {
   next: (data, i, a) => console.log(`Received animal: ${data.name}`),
   error: (err) => console.log(err),
@@ -142,3 +142,81 @@ var output = fs.readFileSync('src/data/animals.txt', 'utf8')
   }, {});
 
 console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
+
+// *****
+// Test CLOSURES
+// *****
+
+// A nested function is defined inside of another function, 
+// allowing access to the outer functions variables
+function foo() {
+    var localVariable = 'private variable';
+    return function() {
+        return localVariable;
+    }
+}
+
+var getLocalVariable = foo();
+getLocalVariable() // "private variable"
+
+// Closure for the 'Module pattern'
+// Using a self-executed function that returns an object.
+var Module = (function() {
+    var privateProperty = 'foo';
+
+    function privateMethod(args) {
+        console.log('This is a private method. Received:', args);
+    }
+
+    return {
+        publicProperty: '',
+        publicMethod: function() {
+          console.log('This is a public method. Accesing private property:', privateProperty);
+        },
+        privilegedMethod: function(args) {
+            return privateMethod(args);
+        }
+    };
+})();
+
+Module.publicMethod();
+Module.privilegedMethod('some argument.');
+
+// Make Ajax Request and on success, access the outer variable requestID
+function sendRequest() {
+  // var requestID = 'xxx123xxx';
+
+  // var xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function() {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     console.log('Request ' + requestID + ' success:', this.responseText);
+  //   }
+  // };
+  // xhttp.open("GET", "https://httpbin.org/get", true);
+  // xhttp.send();
+
+  // The same example using Jquery
+  // $.ajax('https://httpbin.org/get')
+  //   .done(function(response) {
+  //     console.log('Request ' + requestID + ' success:', response);
+  //   })
+  //   .fail(function() {
+  //     console.log('Request ' + requestID + ' error');
+  //   });
+}
+
+sendRequest();
+
+// *****
+// Test SCOPE/CONTEXT
+// *****
+
+// Context on function call
+var myObj = {
+    foo: function() {
+        return this;   
+    }
+};
+
+myObj.foo() === myObj; // true
+

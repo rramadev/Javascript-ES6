@@ -1,8 +1,8 @@
 {
-  "name": "javascript-es6-demos",
+  "name": "javascript-es5-es6-demos",
   "version": "1.0.0",
   "author": "rramadev",
-  "description": "Javascript ES6 Demos",
+  "description": "Javascript ES5/ES6 Demos",
   "license": "MIT",
   "keywords": [
     "rramadev"
