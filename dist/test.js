@@ -172,16 +172,16 @@ console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
 // *****
 
 // A nested function is defined inside of another function, 
-// allowing access to the outer functions variables
+// allowing access to the outer functions letiables
 function foo() {
-  var localVariable = 'private variable';
+  var localletiable = 'private letiable';
   return function () {
-    return localVariable;
+    return localletiable;
   };
 }
 
-var getLocalVariable = foo();
-getLocalVariable // "private variable"
+var getLocalletiable = foo();
+getLocalletiable // "private letiable"
 
 // Closure for the 'Module pattern'
 // Using a self-executed function that returns an object.
@@ -206,11 +206,11 @@ getLocalVariable // "private variable"
 Module.publicMethod();
 Module.privilegedMethod('some argument.');
 
-// Make Ajax Request and on success, access the outer variable requestID
+// Make Ajax Request and on success, access the outer letiable requestID
 function sendRequest() {
-  // var requestID = 'xxx123xxx';
+  // let requestID = 'xxx123xxx';
 
-  // var xhttp = new XMLHttpRequest();
+  // let xhttp = new XMLHttpRequest();
   // xhttp.onreadystatechange = function() {
   //   if (this.readyState == 4 && this.status == 200) {
   //     console.log('Request ' + requestID + ' success:', this.responseText);
@@ -243,3 +243,58 @@ var myObj = {
 };
 
 myObj.foo() === myObj; // true
+
+// *****
+// Test CURRYING
+// *****
+
+var sauce = function sauce(ingredient) {
+  return function (salt) {
+    return function (time) {
+      return 'This sauce is made of ' + ingredient + ' and a ' + salt + ' of salt.' + ' It was cooked for ' + time + '.';
+    };
+  };
+};
+
+var cook = sauce('tomato')('little bit')('30 minutes');
+console.log(cook);
+
+// *****
+// Test RECURSION
+// *****
+
+// Countdown
+var count = function count(num) {
+  if (num < 0) return;
+  console.log(num);
+  count(num - 1);
+};
+
+count(10);
+
+// Fibonacci
+var sum = 0;
+
+var fib = function fib(num1, num2) {
+  if (num2 > 100) return;
+  sum = num1 + num2;
+  console.log(num1, num2, sum);
+  fib(num2, sum);
+};
+
+fib(0, 1);
+
+// Tree structure
+var animalsTree = [{ id: 'animals', parent: null }, { id: 'mammals', parent: 'animals' }, { id: 'dogs', parent: 'mammals' }, { id: 'cats', parent: 'mammals' }, { id: 'birds', parent: 'animals' }, { id: 'parrot', parent: 'birds' }, { id: 'pigeon', parent: 'birds' }];
+
+var makeTree = function makeTree(animalsTree, parent) {
+  var tree = {};
+  animalsTree.filter(function (a) {
+    return a.parent === parent;
+  }).forEach(function (a) {
+    return tree[a.id] = makeTree(animalsTree, a.id);
+  });
+  return tree;
+};
+
+console.log(JSON.stringify(makeTree(animalsTree, null), null, 2));
