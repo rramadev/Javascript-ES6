@@ -4,6 +4,14 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _animals = require('./data/animals');
+
+var _animals2 = _interopRequireDefault(_animals);
+
+var _promises = require('./data/promises');
+
+var _promises2 = _interopRequireDefault(_promises);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -272,7 +280,7 @@ var count = function count(num) {
 
 count(10);
 
-// Fibonacci
+// Fibonacci sequence
 var sum = 0;
 
 var fib = function fib(num1, num2) {
@@ -284,8 +292,8 @@ var fib = function fib(num1, num2) {
 
 fib(0, 1);
 
-// Tree structure
-var animalsTree = [{ id: 'animals', parent: null }, { id: 'mammals', parent: 'animals' }, { id: 'dogs', parent: 'mammals' }, { id: 'cats', parent: 'mammals' }, { id: 'birds', parent: 'animals' }, { id: 'parrot', parent: 'birds' }, { id: 'pigeon', parent: 'birds' }];
+// Building a Tree structure
+
 
 var makeTree = function makeTree(animalsTree, parent) {
   var tree = {};
@@ -297,4 +305,14 @@ var makeTree = function makeTree(animalsTree, parent) {
   return tree;
 };
 
-console.log(JSON.stringify(makeTree(animalsTree, null), null, 2));
+console.log(JSON.stringify(makeTree(_animals2.default, null), null, 2));
+
+// *****
+// Test PROMISES
+// *****
+
+_promises2.default.then(function (result) {
+  return console.log('The promise:', result);
+}).catch(function (err) {
+  return console.log('Promise error:', err);
+});

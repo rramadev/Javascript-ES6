@@ -248,7 +248,7 @@ let count = (num) => {
 
 count(10);
 
-// Fibonacci
+// Fibonacci sequence
 let sum = 0;
 
 let fib = (num1, num2) => {
@@ -256,21 +256,12 @@ let fib = (num1, num2) => {
   sum = num1 + num2;
   console.log(num1, num2, sum);
   fib (num2, sum);
-
 }
 
 fib(0, 1);
 
-// Tree structure
-let animalsTree = [
-  { id: 'animals', parent: null},
-  { id: 'mammals', parent: 'animals'},
-  { id: 'dogs', parent: 'mammals'},
-  { id: 'cats', parent: 'mammals'},
-  { id: 'birds', parent: 'animals'},
-  { id: 'parrot', parent: 'birds'},
-  { id: 'pigeon', parent: 'birds'}
-];
+// Building a Tree structure
+import animalsTree from './data/animals';
 
 let makeTree = (animalsTree, parent) => {
   let tree = {};
@@ -281,3 +272,13 @@ let makeTree = (animalsTree, parent) => {
 };
 
 console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
+
+// *****
+// Test PROMISES
+// *****
+
+import myPromise from './data/promises';
+
+myPromise
+.then((result) => console.log('The promise:', result))
+.catch((err) => console.log('Promise error:', err));
