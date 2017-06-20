@@ -143,6 +143,74 @@ let output = fs.readFileSync('src/data/animals.txt', 'utf8')
 
 console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
 
+
+// *****
+// Test OBJECTS Creation Patterns
+// *****
+
+// Factory Pattern
+let peopleFactory = (name, age, status) => {
+  return {
+    name: name,
+    age: age,
+    status: status,
+    print: () => {
+      console.log('Person details:', name, age, status);
+    }
+  };
+};
+
+let person1 = peopleFactory('amy', 22, 'single');
+person1.print();
+
+// Constructor Pattern
+let peopleConstructor = function (name, age, status) {
+  this.name = name;
+  this.age = age;
+  this.status = status;
+  this.print = () => {
+    console.log('Person details:', this.name, this.age, this.status)
+  };  
+};
+
+let person2 = new peopleConstructor('john', 23, 'single');
+person2.print();
+
+// Prototype Pattern
+let peopleProto = () => {
+};
+
+peopleProto.prototype.name = 'empty';
+peopleProto.prototype.age = 0;
+peopleProto.prototype.status = 'empty';
+peopleProto.prototype.print = function() {
+  console.log('Person details: ' + this.name + ' ' + this.age + ' ' + this.status);
+};
+
+let person3 = new peopleProto();
+person3.name = 'Sam';
+person3.age = 25;
+// Property status will be asigned from prototype
+// person3.status = 'single';
+person3.print();
+
+// Dynamic Prototype Pattern
+let peopleDynamicProto = function (name, age, status) {  
+  this.name = name;
+  this.age = age;
+  this.status = status;
+
+  // Add the print method to the prototype just once
+  if (typeof this.print !== 'function') {
+    peopleDynamicProto.prototype.print = function() {
+      console.log('Person details: ' + this.name + ' ' + this.age + ' ' + this.status);
+    };
+  }
+};
+
+let person4 = new peopleDynamicProto('Unicorn', 28, 'single');
+person4.print();
+
 // *****
 // Test CLOSURES
 // *****
@@ -187,8 +255,8 @@ function sendRequest() {
   // let requestID = 'xxx123xxx';
 
   // let xhttp = new XMLHttpRequest();
-  // xhttp.onreadystatechange = function() {
-  //   if (this.readyState == 4 && this.status == 200) {
+  // xhttp.onreadystatuschange = function() {
+  //   if (this.readystatus == 4 && this.status == 200) {
   //     console.log('Request ' + requestID + ' success:', this.responseText);
   //   }
   // };
@@ -277,9 +345,52 @@ console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
 // Test PROMISES
 // *****
 
-import myPromise from './data/promises';
+import myPromise from './lib/promises';
 
 let numToDouble = 5;
 myPromise(numToDouble)
 .then((result) => console.log('The promise has return after 5s:', result))
 .catch((err) => console.log('Promise error:', err));
+
+// *****
+// Test STREAMS
+// *****
+
+// Stream from object method
+let numberStream = {
+  each: (callback) => {
+    setTimeout(() => callback(1), 1000);
+    setTimeout(() => callback(2), 2000);
+    setTimeout(() => callback(3), 3000);
+  }
+};
+
+numberStream.each(console.log);
+
+// Stream from data file
+// Highland is a streaming library
+import highland from 'highland';
+
+highland(fs.createReadStream('src/data/animals.txt', 'utf8'))
+  .split()
+  .each(x => console.log('Line: ' + x));
+
+// *****
+// Test DESTRUCTURING
+// *****
+
+// Array
+const [first, ...rest] = ['a', 'b', 'c'];
+console.log('The first element of the array:', first);
+console.log('The rest of the array:', rest);
+
+// Object, animal is optional
+const soundMaker = ({animal = 'unicorn', sound}) => {
+  console.log('The ' + animal + ' says ' + sound + '!');
+}
+
+soundMaker({
+  animal: 'horse',
+  sound: 'hhhiiiiyaaa',
+  age: 100
+});

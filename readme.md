@@ -5,9 +5,13 @@
 A series of javascript demos, to test and understand advance Javascript concepts and new feautures included in the ES6 version, including: 
 
 - Functional programming
+- Object creation patterns
 - Arrow functions
 - Modules
 - Closures
+- Promises
+- Streams
+- Destructuring
 
 ## Built With
 

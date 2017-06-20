@@ -19,7 +19,10 @@
     "start": "npm run build && node dist/test.js",
     "build": "babel src -d dist"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "highland": "^2.11.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.2"
