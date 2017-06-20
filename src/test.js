@@ -279,6 +279,7 @@ console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
 
 import myPromise from './data/promises';
 
-myPromise
-.then((result) => console.log('The promise:', result))
+let numToDouble = 5;
+myPromise(numToDouble)
+.then((result) => console.log('The promise has return after 5s:', result))
 .catch((err) => console.log('Promise error:', err));

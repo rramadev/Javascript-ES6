@@ -311,8 +311,9 @@ console.log(JSON.stringify(makeTree(_animals2.default, null), null, 2));
 // Test PROMISES
 // *****
 
-_promises2.default.then(function (result) {
-  return console.log('The promise:', result);
+var numToDouble = 5;
+(0, _promises2.default)(numToDouble).then(function (result) {
+  return console.log('The promise has return:', result);
 }).catch(function (err) {
   return console.log('Promise error:', err);
 });
