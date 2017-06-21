@@ -6,18 +6,21 @@ A series of javascript demos, to test and understand advance Javascript concepts
 
 - Functional programming
 - Object creation patterns
+- Composition
 - Arrow functions
 - Modules
 - Closures
 - Promises
 - Streams
 - Destructuring
+- Unit Testing
 
 ## Built With
 
 - Javascript ES6
 - ESLint
 - Babel
+- Jasmine, Tape
 - Npm scripts
 
 ## Commands

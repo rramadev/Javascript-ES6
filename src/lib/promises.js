@@ -1,4 +1,4 @@
-let myPromise = (numToDouble) => {
+const myPromise = (numToDouble) => {
   return new Promise((resolve, reject) => {
     // Fake waiting time, 5s...
     setTimeout( () => {      

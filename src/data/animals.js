@@ -1,4 +1,4 @@
-let animalsTree = [
+const animalsTree = [
   { id: 'animals', parent: null },
   { id: 'mammals', parent: 'animals' },
   { id: 'dogs', parent: 'mammals' },
@@ -8,4 +8,5 @@ let animalsTree = [
   { id: 'pigeon', parent: 'birds' }
 ];
 
+// Export ES2015 Module
 export default animalsTree;

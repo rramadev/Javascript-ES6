@@ -85,12 +85,12 @@ arrayObservable
 // Test FILTER with Array
 // *****
 
-let animals = [
+const animals = [
   { name: 'bobby', species: 'dog' },
   { name: 'lisa', species: 'dog' },
   { name: 'lucy', species: 'cat' },
   { name: 'jack', species: 'parrot' }
-]
+];
 
 animals
   .filter((animal) => animal.species === 'dog')
@@ -143,25 +143,29 @@ let output = fs.readFileSync('src/data/animals.txt', 'utf8')
 
 console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
 
-
 // *****
 // Test OBJECTS Creation Patterns
 // *****
 
 // Factory Pattern
 let peopleFactory = (name, age, status) => {
+  let privateVar = 'Hey!';
   return {
     name: name,
     age: age,
     status: status,
     print: () => {
       console.log('Person details:', name, age, status);
+    },
+    printPrivate: () => {
+      console.log('This is a person private variable:', privateVar);
     }
   };
 };
 
 let person1 = peopleFactory('amy', 22, 'single');
 person1.print();
+person1.printPrivate();
 
 // Constructor Pattern
 let peopleConstructor = function (name, age, status) {
@@ -212,15 +216,43 @@ let person4 = new peopleDynamicProto('Unicorn', 28, 'single');
 person4.print();
 
 // *****
+// Test COMPOSITION
+// *****
+
+const cleaner = (state) => ({
+  clean: () => console.log('Hey, im a cleaner and I clean really', state.speed)
+});
+
+const jumper = (state) => ({
+  jump: () => console.log('Hey, im a jumper and I jump', state.altitud)
+});
+
+const robotCleanerJumper = (name) => {
+  let state = {
+    name,
+    speed: 'quick',
+    altitud: 'high'
+  };
+  return Object.assign(
+    {},
+    cleaner(state),
+    jumper(state)
+  );
+};
+
+let myRobot = robotCleanerJumper('R2D2');
+myRobot.clean();
+
+// *****
 // Test CLOSURES
 // *****
 
 // A nested function is defined inside of another function, 
-// allowing access to the outer functions letiables
+// allowing access to the outer functions variables
 function foo() {
-    let localletiable = 'private letiable';
+    let localVariable = 'private localVariable';
     return function() {
-        return localletiable;
+        return localVariable;
     }
 }
 
@@ -329,6 +361,7 @@ let fib = (num1, num2) => {
 fib(0, 1);
 
 // Building a Tree structure
+// Import ES2015 Module
 import animalsTree from './data/animals';
 
 let makeTree = (animalsTree, parent) => {
@@ -345,6 +378,7 @@ console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
 // Test PROMISES
 // *****
 
+// Import ES2015 Module
 import myPromise from './lib/promises';
 
 let numToDouble = 5;
