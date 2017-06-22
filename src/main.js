@@ -1,6 +1,10 @@
+// Import ES2015 Module
+import printSeparator from './lib/printer';
+
 /**
  * Test FUNCTIONAL PROGRAMMING in Javascript
  */
+printSeparator('FUNCTIONAL PROGRAMMING in Javascript');
 
 /**
  * Operator Map (Returns a new Observable)
@@ -60,6 +64,7 @@ function createObservable(subscribeFn) {
 // *****
 // Test MAP with Observables
 // *****
+printSeparator('MAP with Observables');
 
 // Observer myObject
 const myObserver = {
@@ -84,6 +89,7 @@ arrayObservable
 // *****
 // Test FILTER with Array
 // *****
+printSeparator('FILTER with Array');
 
 const animals = [
   { name: 'bobby', species: 'dog' },
@@ -99,6 +105,7 @@ animals
 // *****
 // Test FILTER with Observables
 // *****
+printSeparator('FILTER with Observables');
 
 // New Observable myObject from Array
 const arrayAnimals = createObservable(function subscribe(observer) {
@@ -123,6 +130,7 @@ arrayAnimals
 // *****
 // Test REDUCE with data file
 // *****
+printSeparator('REDUCE with data file');
 
 import fs from 'fs';
 
@@ -146,10 +154,12 @@ console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
 // *****
 // Test OBJECTS Creation Patterns
 // *****
+printSeparator('OBJECTS Creation Patterns');
 
 // Factory Pattern
 let peopleFactory = (name, age, status) => {
   let privateVar = 'Hey!';
+
   return {
     name: name,
     age: age,
@@ -169,16 +179,22 @@ person1.printPrivate();
 
 // Constructor Pattern
 let peopleConstructor = function (name, age, status) {
+  let privateVar = 'Hey!';
+
   this.name = name;
   this.age = age;
   this.status = status;
   this.print = () => {
-    console.log('Person details:', this.name, this.age, this.status)
+    console.log('Person details:', this.name, this.age, this.status);
   };  
+  this.printPrivate = () => {
+    console.log('This is a person private variable:', privateVar);
+  };
 };
 
 let person2 = new peopleConstructor('john', 23, 'single');
 person2.print();
+person2.printPrivate();
 
 // Prototype Pattern
 let peopleProto = () => {
@@ -216,8 +232,9 @@ let person4 = new peopleDynamicProto('Unicorn', 28, 'single');
 person4.print();
 
 // *****
-// Test COMPOSITION
+// Test COMPOSITION (Over Inheritance)
 // *****
+printSeparator('COMPOSITION (Over Inheritance)');
 
 const cleaner = (state) => ({
   clean: () => console.log('Hey, im a cleaner and I clean really', state.speed)
@@ -246,6 +263,7 @@ myRobot.clean();
 // *****
 // Test CLOSURES
 // *****
+printSeparator('CLOSURES');
 
 // A nested function is defined inside of another function, 
 // allowing access to the outer functions variables
@@ -308,21 +326,9 @@ function sendRequest() {
 sendRequest();
 
 // *****
-// Test SCOPE/CONTEXT
-// *****
-
-// Context on function call
-let myObj = {
-    foo: function() {
-        return this;   
-    }
-};
-
-myObj.foo() === myObj; // true
-
-// *****
 // Test CURRYING
 // *****
+printSeparator('CURRYING');
 
 let sauce =
   ingredient =>
@@ -338,6 +344,7 @@ console.log(cook);
 // *****
 // Test RECURSION
 // *****
+printSeparator('RECURSION');
 
 // Countdown
 let count = (num) => {
@@ -375,20 +382,67 @@ let makeTree = (animalsTree, parent) => {
 console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
 
 // *****
-// Test PROMISES
+// Test DESTRUCTURING
 // *****
+printSeparator('DESTRUCTURING');
 
-// Import ES2015 Module
-import myPromise from './lib/promises';
+// Array
+const [first, ...rest] = ['a', 'b', 'c'];
+console.log('The first element of the array:', first);
+console.log('The rest of the array:', rest);
 
-let numToDouble = 5;
-myPromise(numToDouble)
-.then((result) => console.log('The promise has return after 5s:', result))
-.catch((err) => console.log('Promise error:', err));
+// Object, animal is optional
+const soundMaker = ({animal = 'unicorn', sound}) => {
+  console.log('The ' + animal + ' says ' + sound + '!');
+}
+
+soundMaker({
+  animal: 'horse',
+  sound: 'hhhiiiiyaaa',
+  age: 100
+});
 
 // *****
-// Test STREAMS
+// Test SCOPE/CONTEXT, THIS, BIND, CALL, APPLY
 // *****
+printSeparator('SCOPE/CONTEXT, THIS, BIND, CALL, APPLY');
+
+// Context on function call
+let myObj = {
+    foo: function() {
+        return this;   
+    }
+};
+
+myObj.foo() === myObj; // true
+
+// Value of This
+
+function f1() {
+  console.log("Value of this:", this);
+}
+
+f1();
+f1.apply(global.process.version);
+
+// An object can be passed as the first argument to call or apply and this will be bound to it.
+var obj = {a: 'Custom'};
+
+// This property is set on the global object
+var a = 'Global';
+
+function whatsThis() {
+  return this.a;  // The value of this is dependent on how the function is called
+}
+
+// Returns 'Global'
+console.log(whatsThis.call(obj));  // Returns 'Custom'
+console.log(whatsThis.apply(obj)); // Returns 'Custom'
+
+// *****
+// Test STREAMS, PROMISES
+// *****
+printSeparator('STREAMS, PROMISES');
 
 // Stream from object method
 let numberStream = {
@@ -409,22 +463,10 @@ highland(fs.createReadStream('src/data/animals.txt', 'utf8'))
   .split()
   .each(x => console.log('Line: ' + x));
 
-// *****
-// Test DESTRUCTURING
-// *****
+// Import ES2015 Module
+import myPromise from './lib/promises';
 
-// Array
-const [first, ...rest] = ['a', 'b', 'c'];
-console.log('The first element of the array:', first);
-console.log('The rest of the array:', rest);
-
-// Object, animal is optional
-const soundMaker = ({animal = 'unicorn', sound}) => {
-  console.log('The ' + animal + ' says ' + sound + '!');
-}
-
-soundMaker({
-  animal: 'horse',
-  sound: 'hhhiiiiyaaa',
-  age: 100
-});
+let numToDouble = 5;
+myPromise(numToDouble)
+.then((result) => console.log('The promise has return after 3s:', result))
+.catch((err) => console.log('Promise error:', err));
