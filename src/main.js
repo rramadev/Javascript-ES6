@@ -83,8 +83,8 @@ const arrayObservable = createObservable(function subscribe(observer) {
 // Subscribe to Observable
 arrayObservable
   .map(x => x * 2)
-  .map(x => x + 10);
-  // .subscribe(myObserver);
+  .map(x => x + 10)
+  .subscribe(myObserver);
 
 // *****
 // Test FILTER with Array
@@ -178,7 +178,7 @@ person1.print();
 person1.printPrivate();
 
 // Constructor Pattern
-let peopleConstructor = function (name, age, status) {
+let Person = function (name, age, status) {
   let privateVar = 'Hey!';
 
   this.name = name;
@@ -192,8 +192,8 @@ let peopleConstructor = function (name, age, status) {
   };
 };
 
-let person2 = new peopleConstructor('john', 23, 'single');
-person2.print();
+let person2 = new Person('john', 23, 'single');
+person2.print(); 
 person2.printPrivate();
 
 // Prototype Pattern
@@ -230,6 +230,40 @@ let peopleDynamicProto = function (name, age, status) {
 
 let person4 = new peopleDynamicProto('Unicorn', 28, 'single');
 person4.print();
+
+// Object.create pattern
+let babyCat = {
+  init: function(name) {
+    this.name = name;
+  },
+  makeSound: function() {
+    console.log('The baby cat says miiiaauuuu');
+  }
+}
+
+let myBabyCat = Object.create(babyCat);
+myBabyCat.init('puffy');
+myBabyCat.makeSound();
+
+// CLASS
+class Mammal {
+  constructor(sound) {
+    this.sound = sound;
+  }
+
+  eat() {
+    return 'I´m eating vegetables...' + this.sound;
+  }
+}
+
+class Elephant extends Mammal {
+  constructor(sound) {
+    super(sound);
+  }
+}
+
+let myElephant = new Elephant('wiiuuu!');
+console.log(myElephant.eat());
 
 // *****
 // Test COMPOSITION (Over Inheritance)
@@ -425,20 +459,6 @@ function f1() {
 f1();
 f1.apply(global.process.version);
 
-// An object can be passed as the first argument to call or apply and this will be bound to it.
-var obj = {a: 'Custom'};
-
-// This property is set on the global object
-var a = 'Global';
-
-function whatsThis() {
-  return this.a;  // The value of this is dependent on how the function is called
-}
-
-// Returns 'Global'
-console.log(whatsThis.call(obj));  // Returns 'Custom'
-console.log(whatsThis.apply(obj)); // Returns 'Custom'
-
 // *****
 // Test STREAMS, PROMISES
 // *****
@@ -470,3 +490,28 @@ let numToDouble = 5;
 myPromise(numToDouble)
 .then((result) => console.log('The promise has return after 3s:', result))
 .catch((err) => console.log('Promise error:', err));
+
+// *****
+// Test MISCELLANEOUS
+// *****
+
+// Random-numbers-sorter
+let lotery = {};
+let result = [];
+let iterations = 1000;
+
+for (let i=0; i<=iterations; i++) { 
+	let num = Math.floor(Math.random() * 10); 
+	lotery[num] = lotery[num] + 1 || 1; 
+}
+
+Object.keys(lotery).forEach((num) => result.push([num,lotery[num]]));
+
+result.map((count) => {
+  let percent = count[1]*100/iterations;
+  count.push(percent + '%');
+});
+
+result.sort((a, b) => b[1] - a[1]);
+
+console.log('Thats the lotery result:\n', result);
