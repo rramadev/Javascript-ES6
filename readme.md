@@ -27,8 +27,13 @@ A series of javascript demos, to test and understand advance Javascript concepts
 
 command | description
 --- | ---
-`npm run start`| build, executes test with node
+`npm run start`| build, serve
 `npm run build`| babel build to dist folder
+`npm run serve`| executes main with node
+`npm run test:init`| init jasmine tests
+`npm run test`| runs jasmin tests
+`npm run test:tape`| runs tape tests
+`npm run test:tape:browser`| runs tape tests in the browser
 
 ## Installation
 
