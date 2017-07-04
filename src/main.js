@@ -492,6 +492,29 @@ myPromise(numToDouble)
 .catch((err) => console.log('Promise error:', err));
 
 // *****
+// Test GENERATORS
+// *****
+printSeparator('GENERATORS');
+
+import fetch from 'node-fetch';
+
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+  .then(response => response.json())
+  .then(x => console.log(x));
+
+import run from './lib/generator';
+
+// run(function *() {
+//   const uri = 'https://jsonplaceholder.typicode.com/posts/1';
+//   let response = yield fetch(uri);
+//   let post = yield response.json();
+//   let title = post.title;
+//   return title;
+// })
+//   .then(x => console.log('Post title:', x))
+//   .catch( err => console.log(err.stack));
+
+// *****
 // Test MISCELLANEOUS
 // *****
 

@@ -3,8 +3,7 @@
 // *****
 import test from 'tape';
 
-// For each unit test you write,
-// answer these questions:
+// Boilerplate
 test('What component aspect are you testing?', t => {
   const actual = 'What is the actual output?';
   const expected = 'What is the expected output?';
@@ -26,9 +25,9 @@ test('A passing test', (t) => {
   t.end();
 });
 
-test('tions with tape.', (t) => {
+test('Component functionality test with tape.', (t) => {
   const expected = 'something to test';
-  const actual = 'something to test';
+  const actual = 'something to test2';
 
   t.equal(actual, expected,
     'Given two mismatched values, .equal() should produce a nice bug report');
