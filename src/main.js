@@ -197,17 +197,17 @@ person2.print();
 person2.printPrivate();
 
 // Prototype Pattern
-let peopleProto = () => {
+let PeopleProto = function() {
 };
 
-peopleProto.prototype.name = 'empty';
-peopleProto.prototype.age = 0;
-peopleProto.prototype.status = 'empty';
-peopleProto.prototype.print = function() {
+PeopleProto.prototype.name = 'empty';
+PeopleProto.prototype.age = 0;
+PeopleProto.prototype.status = 'empty';
+PeopleProto.prototype.print = function() {
   console.log('Person details: ' + this.name + ' ' + this.age + ' ' + this.status);
 };
 
-let person3 = new peopleProto();
+let person3 = new PeopleProto();
 person3.name = 'Sam';
 person3.age = 25;
 // Property status will be asigned from prototype
@@ -293,6 +293,39 @@ const robotCleanerJumper = (name) => {
 
 let myRobot = robotCleanerJumper('R2D2');
 myRobot.clean();
+
+printSeparator('COMPOSITION (Over Inheritance) 2 - Classical Inheritance');
+
+function Cleaner() { }
+Cleaner.prototype.clean =  function() {
+  console.log('Hey, im a new cleaner: ', this.state.name, ', and I clean really', this.state.speed)
+}
+
+function Jumper() { }
+Jumper.prototype.jump = function() {
+  console.log('Hey, im a new jumper and I jump', this.state.altitud)
+}
+
+function RobotCleanerJumper(name) { 
+  Cleaner.call(this);
+  Jumper.call(this);
+  
+  this.state = {
+    name,
+    speed: 'quick',
+    altitud: 'high'
+  };  
+}
+
+// Set prototype to one superclass prototype
+RobotCleanerJumper.prototype = Object.create(Cleaner.prototype);
+// Mix prototype with the other superclass prototype
+Object.assign(RobotCleanerJumper.prototype, Jumper.prototype);
+// Set the constructor correctly
+RobotCleanerJumper.prototype.constructor = RobotCleanerJumper;
+
+let myNewRobot = new RobotCleanerJumper('new R2D2');
+myNewRobot.clean();
 
 // *****
 // Test CLOSURES
