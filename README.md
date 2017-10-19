@@ -1,8 +1,8 @@
-# Javascript ES5/ES6 Demos
+# Javascript ES5/ES2015 Demos
 
 ## Synopsis
 
-A series of javascript demos, to test and understand advance Javascript concepts and new feautures included in the ES6 version, including: 
+A series of javascript demos, to test and understand advance Javascript concepts and new feautures included in the ES2015 version, including: 
 
 - Functional programming
 - Object creation patterns
@@ -17,7 +17,7 @@ A series of javascript demos, to test and understand advance Javascript concepts
 
 ## Built With
 
-- Javascript ES6
+- Javascript ES2015
 - ESLint
 - Babel
 - Jasmine, Tape
