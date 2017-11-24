@@ -139,7 +139,7 @@ let output = fs.readFileSync('src/data/animals.txt', 'utf8')
   .trim()
   .split('\r\n')
   .map(line => line.split('\t'))
-  .reduce((animal, line) => { 
+  .reduce((animal, line) => {
     animal[line[0]] = animal[line[0]] || [];
     animal[line[0]].push({
       species: line[1],
@@ -157,8 +157,9 @@ console.log('File output in JSON format:\n', JSON.stringify(output, null, 2));
 printSeparator('OBJECTS Creation Patterns');
 
 // Factory Pattern
+// (Flexibel, Simple, NO this, good default choice)
 let peopleFactory = (name, age, status) => {
-  let privateVar = 'Hey!';
+  let privateVar = 'Hey I´m private!';
 
   return {
     name: name,
@@ -179,31 +180,32 @@ person1.printPrivate();
 
 // Constructor Pattern
 let Person = function (name, age, status) {
-  let privateVar = 'Hey!';
+  let privateVar = 'Hey I´m private!';
 
   this.name = name;
   this.age = age;
   this.status = status;
   this.print = () => {
     console.log('Person details:', this.name, this.age, this.status);
-  };  
+  };
   this.printPrivate = () => {
     console.log('This is a person private variable:', privateVar);
   };
 };
 
 let person2 = new Person('john', 23, 'single');
-person2.print(); 
+person2.print();
 person2.printPrivate();
 
 // Prototype Pattern
-let PeopleProto = function() {
+// (Great Performance)
+let PeopleProto = function () {
 };
 
 PeopleProto.prototype.name = 'empty';
 PeopleProto.prototype.age = 0;
 PeopleProto.prototype.status = 'empty';
-PeopleProto.prototype.print = function() {
+PeopleProto.prototype.print = function () {
   console.log('Person details: ' + this.name + ' ' + this.age + ' ' + this.status);
 };
 
@@ -215,14 +217,14 @@ person3.age = 25;
 person3.print();
 
 // Dynamic Prototype Pattern
-let peopleDynamicProto = function (name, age, status) {  
+let peopleDynamicProto = function (name, age, status) {
   this.name = name;
   this.age = age;
   this.status = status;
 
   // Add the print method to the prototype just once
   if (typeof this.print !== 'function') {
-    peopleDynamicProto.prototype.print = function() {
+    peopleDynamicProto.prototype.print = function () {
       console.log('Person details: ' + this.name + ' ' + this.age + ' ' + this.status);
     };
   }
@@ -233,14 +235,16 @@ person4.print();
 
 // Object.create pattern
 let babyCat = {
-  init: function(name) {
+  init: function (name) {
     this.name = name;
+    // return this;
   },
-  makeSound: function() {
-    console.log('The baby cat says miiiaauuuu');
+  makeSound: function () {
+    console.log('The baby cat ' + this.name + ' says miiiaauuuu');
   }
 }
 
+// let myBabyCat = Object.create(babyCat).init('puffy');
 let myBabyCat = Object.create(babyCat);
 myBabyCat.init('puffy');
 myBabyCat.makeSound();
@@ -294,27 +298,28 @@ const robotCleanerJumper = (name) => {
 let myRobot = robotCleanerJumper('R2D2');
 myRobot.clean();
 
+// *****
 printSeparator('COMPOSITION (Over Inheritance) 2 - Classical Inheritance');
 
 function Cleaner() { }
-Cleaner.prototype.clean =  function() {
+Cleaner.prototype.clean = function () {
   console.log('Hey, im a new cleaner: ', this.state.name, ', and I clean really', this.state.speed)
 }
 
 function Jumper() { }
-Jumper.prototype.jump = function() {
+Jumper.prototype.jump = function () {
   console.log('Hey, im a new jumper and I jump', this.state.altitud)
 }
 
-function RobotCleanerJumper(name) { 
+function RobotCleanerJumper(name) {
   Cleaner.call(this);
   Jumper.call(this);
-  
+
   this.state = {
     name,
     speed: 'quick',
     altitud: 'high'
-  };  
+  };
 }
 
 // Set prototype to one superclass prototype
@@ -335,10 +340,10 @@ printSeparator('CLOSURES');
 // A nested function is defined inside of another function, 
 // allowing access to the outer functions variables
 function foo() {
-    let localVariable = 'private localVariable';
-    return function() {
-        return localVariable;
-    }
+  let localVariable = 'private localVariable';
+  return function () {
+    return localVariable;
+  }
 }
 
 let getLocalletiable = foo();
@@ -346,22 +351,22 @@ getLocalletiable() // "private letiable"
 
 // Closure for the 'Module pattern'
 // Using a self-executed function that returns an object.
-let Module = (function() {
-    let privateProperty = 'foo';
+let Module = (function () {
+  let privateProperty = 'foo';
 
-    function privateMethod(args) {
-        console.log('This is a private method. Received:', args);
+  function privateMethod(args) {
+    console.log('This is a private method. Received:', args);
+  }
+
+  return {
+    publicProperty: '',
+    publicMethod: function () {
+      console.log('This is a public method. Accesing private property:', privateProperty);
+    },
+    privilegedMethod: function (args) {
+      return privateMethod(args);
     }
-
-    return {
-        publicProperty: '',
-        publicMethod: function() {
-          console.log('This is a public method. Accesing private property:', privateProperty);
-        },
-        privilegedMethod: function(args) {
-            return privateMethod(args);
-        }
-    };
+  };
 })();
 
 Module.publicMethod();
@@ -417,7 +422,7 @@ printSeparator('RECURSION');
 let count = (num) => {
   if (num < 0) return;
   console.log(num);
-  count(num-1);
+  count(num - 1);
 }
 
 count(10);
@@ -429,7 +434,7 @@ let fib = (num1, num2) => {
   if (num2 > 100) return;
   sum = num1 + num2;
   console.log(num1, num2, sum);
-  fib (num2, sum);
+  fib(num2, sum);
 }
 
 fib(0, 1);
@@ -446,7 +451,7 @@ let makeTree = (animalsTree, parent) => {
   return tree;
 };
 
-console.log (JSON.stringify(makeTree(animalsTree, null), null, 2));
+console.log(JSON.stringify(makeTree(animalsTree, null), null, 2));
 
 // *****
 // Test DESTRUCTURING
@@ -459,7 +464,7 @@ console.log('The first element of the array:', first);
 console.log('The rest of the array:', rest);
 
 // Object, animal is optional
-const soundMaker = ({animal = 'unicorn', sound}) => {
+const soundMaker = ({ animal = 'unicorn', sound }) => {
   console.log('The ' + animal + ' says ' + sound + '!');
 }
 
@@ -476,9 +481,9 @@ printSeparator('SCOPE/CONTEXT, THIS, BIND, CALL, APPLY');
 
 // Context on function call
 let myObj = {
-    foo: function() {
-        return this;   
-    }
+  foo: function () {
+    return this;
+  }
 };
 
 myObj.foo() === myObj; // true
@@ -521,8 +526,8 @@ import myPromise from './lib/promises';
 
 let numToDouble = 5;
 myPromise(numToDouble)
-.then((result) => console.log('The promise has return after 3s:', result))
-.catch((err) => console.log('Promise error:', err));
+  .then((result) => console.log('The promise has return after 3s:', result))
+  .catch((err) => console.log('Promise error:', err));
 
 // *****
 // Test GENERATORS
@@ -531,11 +536,16 @@ printSeparator('GENERATORS');
 
 import fetch from 'node-fetch';
 
-fetch('https://jsonplaceholder.typicode.com/posts/1')
-  .then(response => response.json())
-  .then(x => console.log(x));
+function fetchPhotos() {
+  return fetch('https://jsonplaceholder.typicode.com/photos')
+    .then(response => response.json())
+    .then(data => data[0]);
+}
 
-import run from './lib/generator';
+fetchPhotos()
+  .then(photos => console.log('Photos [0]:', photos));
+
+// import run from './lib/generator';
 
 // run(function *() {
 //   const uri = 'https://jsonplaceholder.typicode.com/posts/1';
@@ -548,23 +558,37 @@ import run from './lib/generator';
 //   .catch( err => console.log(err.stack));
 
 // *****
+// Test ASYNC/AWAIT
+// *****
+printSeparator('ASYNC/AWAIT');
+
+async function fetchPost() {
+  let response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+  let data = await response.json();
+  return data;
+}
+
+fetchPost()
+  .then(post => console.log('Post 1:', post));
+
+// *****
 // Test MISCELLANEOUS
 // *****
 
 // Random-numbers-sorter
 let lotery = {};
 let result = [];
-let iterations = 1000;
+const iterations = 1000;
 
-for (let i=0; i<=iterations; i++) { 
-	let num = Math.floor(Math.random() * 10); 
-	lotery[num] = lotery[num] + 1 || 1; 
+for (let i = 0; i <= iterations; i++) {
+  let num = Math.floor(Math.random() * 10);
+  lotery[num] = lotery[num] + 1 || 1;
 }
 
-Object.keys(lotery).forEach((num) => result.push([num,lotery[num]]));
+Object.keys(lotery).forEach((num) => result.push([num, lotery[num]]));
 
 result.map((count) => {
-  let percent = count[1]*100/iterations;
+  let percent = count[1] * 100 / iterations;
   count.push(percent + '%');
 });
 
