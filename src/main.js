@@ -536,14 +536,16 @@ printSeparator('GENERATORS');
 
 import fetch from 'node-fetch';
 
+function handleErrors(response) {
+  if (!response.ok) {
+    throw new Error(response.status + ' - ' + response.statusText);
+  }
+  return response.json();
+}
+
 function fetchPhotos() {
-  return fetch('https://jsonplaceholder2.typicode.com/photos')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status + ' - ' + response.statusText);
-      }
-      return response.json();
-    })
+  return fetch('https://jsonplaceholder.typicode.com/photos')
+    .then(handleErrors)
     .then(data => data[0])
     .catch(error => { throw new Error(error); });
 }
