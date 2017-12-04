@@ -537,13 +537,20 @@ printSeparator('GENERATORS');
 import fetch from 'node-fetch';
 
 function fetchPhotos() {
-  return fetch('https://jsonplaceholder.typicode.com/photos')
-    .then(response => response.json())
-    .then(data => data[0]);
+  return fetch('https://jsonplaceholder2.typicode.com/photos')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status + ' - ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => data[0])
+    .catch(error => { throw new Error(error); });
 }
 
 fetchPhotos()
-  .then(photos => console.log('Photos [0]:', photos));
+  .then(photos => console.log('Photos [0]:', photos))
+  .catch(error => console.log('fetchPhotos()', error));
 
 // import run from './lib/generator';
 
